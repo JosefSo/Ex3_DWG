@@ -1,5 +1,8 @@
+import random
 import sys
 from _ast import List
+
+from matplotlib import pyplot as plt
 
 from src.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
@@ -58,10 +61,11 @@ class GraphAlgo(GraphAlgoInterface):
             json.dump(toSave,fp=f,indent=4,default=lambda o:o.__dict__)
 
 
-    def findInit(self,g1:GraphInterface)-> []:
+    def findInit(self)-> []:
         queue =[]
-        for n in g1.get_all_v().values():
-            n.setWeight(float(sys.maxsize))
+        for n in self.graph.get_all_v().values():
+            n.setWeight(sys.maxsize)
+            print(n.getWeight())
             n.setTag(-sys.maxsize)
             n.setInfo("")
             queue.append(n)
@@ -72,29 +76,30 @@ class GraphAlgo(GraphAlgoInterface):
         gcopy.append(ni)
         minweight=ni.getWeight()
         key= ni.getId()
-        while len(q)>0:
+        while q:
             ni=q.pop()
             gcopy.append(ni)
-            if ni.getWeight()<minweight:
+            if ni.getWeight() < minweight:
                 minweight = ni.getWeight()
                 key =ni.getId()
-        while len(gcopy)>0:
+        while gcopy:
             q.append(gcopy.pop())
         return key
 
-    def relax (self,g1:GraphInterface,src:int,dest:int):
-        if g1.get_all_v()[src].getWeight()<float(sys.maxsize) and g1.get_all_v()[dest].getWeight()<g1.get_all_v()[src].getWeight()+g1.all_in_edges_of_node(src)[dest]:
-            g1.get_all_v()[dest].setWeight(g1.get_all_v()[src].getWeight()+g1.all_in_edges_of_node(src)[dest])
-            g1.get_all_v()[dest].setTag(src)
+    def relax (self,src:int,dest:int):
+        if self.graph.get_all_v()[src].getWeight()< sys.maxsize:
+            if self.graph.get_all_v()[dest].getWeight()>self.graph.get_all_v()[src].getWeight()+self.graph.all_in_edges_of_node(src)[dest]:
+                self.graph.get_all_v()[dest].setWeight(self.graph.get_all_v()[src].getWeight()+self.graph.all_in_edges_of_node(src)[dest])
+                self.graph.get_all_v()[dest].setTag(src)
 
-    def dijkstra (self, g1:GraphInterface,src:int):
-        queue = self.findInit(g1)
-        g1.get_all_v()[src].setWeight(0)
-        while len(queue)>0:
-            node=g1.get_all_v()[self.ExtractMin(queue)]
+    def dijkstra (self,src:int):
+        queue = self.findInit()
+        self.graph.get_all_v()[src].setWeight(0)
+        while queue:
+            node=self.graph.get_all_v()[self.ExtractMin(queue)]
             queue.remove(node)
-            for d in g1.all_in_edges_of_node(node.getId()).keys():
-                self.relax(g1,node.getId(),d)
+            for d in self.graph.all_in_edges_of_node(node.getId()).keys():
+                self.relax(node.getId(),d)
 
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
@@ -102,9 +107,9 @@ class GraphAlgo(GraphAlgoInterface):
         stack.append(self.graph.get_all_v()[id2])
         if id1 == id2:
             return (0,stack)
-        self.dijkstra(self.graph,id1)
+        self.dijkstra(id1)
         dist=-1
-        if self.graph.get_all_v()[id2].getWeight==float(sys.maxsize):
+        if self.graph.get_all_v()[id2].getWeight()<sys.maxsize:
             dist=self.graph.get_all_v()[id2].getWeight
         return (dist,stack)
 
@@ -115,4 +120,33 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def plot_graph(self) -> None:
-        pass
+        plt.title("Directed Weighted Graph")
+        plt.xlabel("x")
+        plt.ylabel("y")
+        locations = {}
+        for node in self.graph.get_all_v().values():
+            if node.getId() in locations.keys():
+                x, y, z = locations[node.getId()]
+            elif node.getLocation() is None:
+                x, y, z = random.uniform(0, 100), random.uniform(0, 100),random.uniform(0, 100)
+                locations[node.getId()]=(x,y,z)
+            else:
+                x, y, z = node.getLocation()
+                locations[node.getId()] = (x, y, z)
+            plt.plot(x, y, markersize=10, marker='.', color='blue')
+            plt.text(x, y, str(node.getId()), color="red", fontsize=10)
+
+            for dest in self.graph.all_in_edges_of_node(node.getId()).items():
+                d, w = dest
+                if d in locations.keys():
+                    his_x, his_y, his_z = locations[d]
+                elif self.graph.get_all_v()[d].getLocation() is None:
+                    his_x, his_y, his_z = random.uniform(0, 100), random.uniform(0, 100), random.uniform(0, 100)
+                    locations[d] = (his_x, his_y, his_z)
+                else:
+                    his_x, his_y, his_z = self.graph.get_all_v()[d].getLocation()
+                    locations[d] = (his_x, his_y, his_z)
+
+                plt.annotate("", xy=(x, y), xytext=(his_x, his_y), arrowprops=dict(arrowstyle="<-"))
+                plt.text((x+his_x)/2, (y+his_y)/2, w, color="red", fontsize=5)
+        plt.show()

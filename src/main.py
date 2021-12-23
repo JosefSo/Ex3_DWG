@@ -1,3 +1,5 @@
+from matplotlib import pyplot as plt
+
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
@@ -19,8 +21,8 @@ def check():
     ([1,3,4,2],3.5)
     """
     check0()
-   # check1()
-    #check2()
+    check1()
+    check2()
 
 
 def check0():
@@ -53,7 +55,7 @@ def check1():
     :return:
     """
     g_algo = GraphAlgo()  # init an empty graph - for the GraphAlgo
-    file = "../data/G1.json"
+    file = "../data/A5.json"
     g_algo.load_from_json(file)  # init a GraphAlgo from a json file
     print(g_algo.shortest_path(0, 3))
     print(g_algo.shortest_path(3, 1))
@@ -105,4 +107,4 @@ def check3():
 
 
 if __name__ == '__main__':
-    check()
+     check()
