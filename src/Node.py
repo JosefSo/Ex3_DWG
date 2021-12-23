@@ -3,14 +3,23 @@ class Node:
     def __init__(self, weight:float,id:int,tag:int,pos:tuple,info:str):
        self.weight = weight
        self.id = id
-       self.pos = pos
+       x, y, z = pos
+       if pos is not None:
+           x, y, z = pos
+           self.pos = float(x), float(y), float(z)
+       else:
+           self.pos = None
        self.info = info
        self.tag = tag
 
     def __init__(self, node_id: int, pos: tuple=None):
         self.weight = 0
         self.id = node_id
-        self.pos = pos
+        if pos is not None:
+            x,y,z=pos
+            self.pos = float(x),float(y),float(z)
+        else:
+            self.pos = None
         self.info = ""
         self.tag = 0
 
@@ -44,6 +53,6 @@ class Node:
     def __repr__(self):
         if self.pos is not None:
             x, y, z = self.pos
-            return f"Node id: ,{self.id} pos: ,{x},{y},{z}"
+            return f"Node id:{self.id}, pos:{x},{y},{z}"
 
-        return f"Node id: ,{self.id}"
+        return f"Node id:{self.id}"
