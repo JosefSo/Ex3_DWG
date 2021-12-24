@@ -1,6 +1,8 @@
 import random
 import sys
 from _ast import List
+import heapq as heap
+from collections import defaultdict
 
 from matplotlib import pyplot as plt
 
@@ -57,67 +59,79 @@ class GraphAlgo(GraphAlgoInterface):
                     self.Nodes.append(node)
 
         toSave = JsonGraph(self.graph)
-        with open(file_name,"w") as f:
+        with open(file_name+".json","w") as f:
             json.dump(toSave,fp=f,indent=4,default=lambda o:o.__dict__)
 
+    def dijkstra(self, startingNode):
+        visited = set()
+        parentsMap = {}
+        pq = []
+        nodeCosts = defaultdict(lambda: float('inf'))
+        nodeCosts[startingNode] = 0
+        heap.heappush(pq, (0, startingNode))
 
-    def findInit(self)-> []:
-        queue =[]
-        for n in self.graph.get_all_v().values():
-            n.setWeight(sys.maxsize)
-            print(n.getWeight())
-            n.setTag(-sys.maxsize)
-            n.setInfo("")
-            queue.append(n)
-        return queue;
-    def ExtractMin(self, q:[])->int:
-        gcopy=[]
-        ni=q.pop()
-        gcopy.append(ni)
-        minweight=ni.getWeight()
-        key= ni.getId()
-        while q:
-            ni=q.pop()
-            gcopy.append(ni)
-            if ni.getWeight() < minweight:
-                minweight = ni.getWeight()
-                key =ni.getId()
-        while gcopy:
-            q.append(gcopy.pop())
-        return key
+        while pq:
+            # go greedily by always extending the shorter cost nodes first
+            _, node = heap.heappop(pq)
+            visited.add(node)
 
-    def relax (self,src:int,dest:int):
-        if self.graph.get_all_v()[src].getWeight()< sys.maxsize:
-            if self.graph.get_all_v()[dest].getWeight()>self.graph.get_all_v()[src].getWeight()+self.graph.all_in_edges_of_node(src)[dest]:
-                self.graph.get_all_v()[dest].setWeight(self.graph.get_all_v()[src].getWeight()+self.graph.all_in_edges_of_node(src)[dest])
-                self.graph.get_all_v()[dest].setTag(src)
+            for adjNode, weight in self.graph.all_in_edges_of_node(node).items():
+                if adjNode in visited:
+                    continue
 
-    def dijkstra (self,src:int):
-        queue = self.findInit()
-        self.graph.get_all_v()[src].setWeight(0)
-        while queue:
-            node=self.graph.get_all_v()[self.ExtractMin(queue)]
-            queue.remove(node)
-            for d in self.graph.all_in_edges_of_node(node.getId()).keys():
-                self.relax(node.getId(),d)
+                newCost = nodeCosts[node] + weight
+                if nodeCosts[adjNode] > newCost:
+                    parentsMap[adjNode] = node
+                    nodeCosts[adjNode] = newCost
+                    heap.heappush(pq, (newCost, adjNode))
+
+        return parentsMap, nodeCosts
 
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         stack=[]
-        stack.append(self.graph.get_all_v()[id2])
+        curr=id2
+        stack.append(self.graph.get_all_v()[curr])
         if id1 == id2:
             return (0,stack)
-        self.dijkstra(id1)
-        dist=-1
-        if self.graph.get_all_v()[id2].getWeight()<sys.maxsize:
-            dist=self.graph.get_all_v()[id2].getWeight
-        return (dist,stack)
+        parentsMap, nodeCosts =self.dijkstra(id1)
+        print(len(parentsMap),"bbb",len(nodeCosts),"ccc",len(self.graph.get_all_v()))
+        dist = -1
+        if str(nodeCosts[id2]) != "inf":
+            dist = nodeCosts[id2]
+        if dist == -1:
+            return (-1, [])
+        while curr != id1:
+            curr = parentsMap[curr]
+            stack.append(self.graph.get_all_v()[curr])
+        NodeList=[]
+        while(stack):
+            NodeList.append(stack.pop())
+        return (dist,NodeList)
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
         pass
 
     def centerPoint(self) -> (int, float):
+        #if self.graph is None or len(self.graph.get_all_v())==0:
+        #    return None
+        #for k in self.graph.get_all_v().keys():
+        #    parentsMap, nodeCosts = self.dijkstra(k)
+        #    break
+        #V = len(self.graph.get_all_v())
+        #if len(nodeCosts) == V:
+        #    center = 0
+        #    dist =[]
+        #    for i in range (V):
+        #       dist[i]=[]
+        #       for j in range (V):
+        #          dist[i][j].appand(float('inf')*-1)
+        #           print(dist[i][j])
         pass
+
+
+
+
 
     def plot_graph(self) -> None:
         plt.title("Directed Weighted Graph")
