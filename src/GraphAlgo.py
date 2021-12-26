@@ -43,7 +43,7 @@ class GraphAlgo(GraphAlgoInterface):
             def __init__(self,g:DiGraph):
                 self.Edges = []
                 for n in g.get_all_v().values():
-                    for d,w in g.all_in_edges_of_node(n.getId()).items():
+                    for d,w in g.all_out_edges_of_node(n.getId()).items():
                         edge = {}
                         edge["src"] = n.getId()
                         edge["w"] = w
@@ -75,7 +75,7 @@ class GraphAlgo(GraphAlgoInterface):
             _, node = heap.heappop(pq)
             visited.add(node)
 
-            for adjNode, weight in self.graph.all_in_edges_of_node(node).items():
+            for adjNode, weight in self.graph.all_out_edges_of_node(node).items():
                 if adjNode in visited:
                     continue
 
@@ -95,7 +95,6 @@ class GraphAlgo(GraphAlgoInterface):
         if id1 == id2:
             return (0,stack)
         parentsMap, nodeCosts =self.dijkstra(id1)
-        print(len(parentsMap),"bbb",len(nodeCosts),"ccc",len(self.graph.get_all_v()))
         dist = -1
         if str(nodeCosts[id2]) != "inf":
             dist = nodeCosts[id2]
@@ -150,7 +149,7 @@ class GraphAlgo(GraphAlgoInterface):
             plt.plot(x, y, markersize=10, marker='.', color='blue')
             plt.text(x, y, str(node.getId()), color="red", fontsize=10)
 
-            for dest in self.graph.all_in_edges_of_node(node.getId()).items():
+            for dest in self.graph.all_out_edges_of_node(node.getId()).items():
                 d, w = dest
                 if d in locations.keys():
                     his_x, his_y, his_z = locations[d]

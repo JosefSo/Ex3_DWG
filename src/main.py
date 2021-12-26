@@ -104,7 +104,11 @@ def check3():
     print(g_algo.centerPoint())
     print(g_algo.TSP([1, 2, 4]))
     g_algo.plot_graph()
+    g.remove_node(0)
+    g.remove_node(4)
+    g_algo= GraphAlgo(g)
+    g_algo.plot_graph()
 
 
 if __name__ == '__main__':
-     check()
+     check3()
