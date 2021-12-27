@@ -91,6 +91,8 @@ class GraphAlgo(GraphAlgoInterface):
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         stack=[]
         curr=id2
+        if id1 not in self.graph.get_all_v().keys()or id1 not in self.graph.get_all_v().keys():
+           return (float('inf'), [])
         stack.append(self.graph.get_all_v()[curr])
         if id1 == id2:
             return (0,stack)
@@ -99,7 +101,7 @@ class GraphAlgo(GraphAlgoInterface):
         if str(nodeCosts[id2]) != "inf":
             dist = nodeCosts[id2]
         if dist == -1:
-            return (-1, [])
+            return (float('inf'), [])
         while curr != id1:
             curr = parentsMap[curr]
             stack.append(self.graph.get_all_v()[curr])
@@ -111,27 +113,29 @@ class GraphAlgo(GraphAlgoInterface):
     def TSP(self, node_lst: list[int]) -> (list[int], float):
         pass
 
+    def maxPathOfNode(self,node:int):
+        max =sys.float_info.min
+        parentsMap, nodeCosts = self.dijkstra(node)
+        if len(nodeCosts) !=len(self.graph.get_all_v()):
+            return None
+        for i in self.graph.get_all_v().keys():
+            if i !=node:
+                temp= nodeCosts[i]
+                if temp>max:
+                    max=temp
+        return max
+
+
     def centerPoint(self) -> (int, float):
-        #if self.graph is None or len(self.graph.get_all_v())==0:
-        #    return None
-        #for k in self.graph.get_all_v().keys():
-        #    parentsMap, nodeCosts = self.dijkstra(k)
-        #    break
-        #V = len(self.graph.get_all_v())
-        #if len(nodeCosts) == V:
-        #    center = 0
-        #    dist =[]
-        #    for i in range (V):
-        #       dist[i]=[]
-        #       for j in range (V):
-        #          dist[i][j].appand(float('inf')*-1)
-        #           print(dist[i][j])
-        pass
-
-
-
-
-
+        min =sys.float_info.max
+        for i in self.graph.get_all_v().keys():
+            center = self.maxPathOfNode(i)
+            if center is None:
+                return None
+            if center<min:
+                min =center
+                ans=i
+        return ans,min
     def plot_graph(self) -> None:
         plt.title("Directed Weighted Graph")
         plt.xlabel("x")

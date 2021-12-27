@@ -111,4 +111,15 @@ def check3():
 
 
 if __name__ == '__main__':
-     check()
+     #check()
+     g_algo = GraphAlgo()
+     file = '../data/G1.json'
+     g_algo.load_from_json(file)
+     print(g_algo.centerPoint())
+     file = '../data/G2.json'
+     g_algo.load_from_json(file)
+     print(g_algo.centerPoint())
+     file = '../data/G3.json'
+     g_algo.load_from_json(file)
+     print(g_algo.centerPoint())
+
