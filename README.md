@@ -19,7 +19,7 @@ https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 
 🔹Shortest path: finding the shortest path between two nodes and its length. Our algorithm for finding shortest path is based on Dijkstra algorithm.
 
-🔹Tsp:(not real tsp but very close to it): finding finding the shortest path that goes over all nodes in the graph. Here we used Simulated annealing (SA) Algorithm. Simulated annealing (SA) is a probabilistic technique for approximating the global optimum of a given function. 
+🔹TSP:(not real tsp but very close to it): finding the shortest path between all given nodes on the graph. We've used ACO (Ant colony optimization) algorithm to solve this problem. ACO is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. 
 
 ## matplotlib
 
