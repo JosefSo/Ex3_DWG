@@ -17,15 +17,14 @@ from src.Node import Node
 class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph:GraphInterface= DiGraph()):
+        self.graph=DiGraph()
         self.graph=graph
-
-   # def __init__(self,graph:GraphInterface):
-   #     self.graph=graph
 
     def get_graph(self) -> GraphInterface:
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
+        self.graph=DiGraph()
         with open(file_name, 'r') as f:
             dict = json.load(f)
         nodes = dict.get("Nodes")

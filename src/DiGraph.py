@@ -9,9 +9,9 @@ class DiGraph(GraphInterface):
    #     self.nodes=nodes
    #     self.edges=edges
    #     self.mc=0
-    def __init__(self,nodes={},edges={}):
-        self.nodes=nodes
-        self.edges=edges
+    def __init__(self):
+        self.nodes={}
+        self.edges={}
         self.mc=0
     def __deepcopy__(self, memodict={})->dict:
        g1=DiGraph()
@@ -90,5 +90,14 @@ class DiGraph(GraphInterface):
         del self.edges.get(node_id1)[node_id2]
         self.mc=self.mc+1
         return True
+    def __str__(self):
+        str=""
+        for i in self.get_all_v().keys():
+            str = f"{str}Edges from node {i}:["
+            for d,w in self.all_out_edges_of_node(i).items():
+                if (d,w) != None:
+                    str=f"{str}(dest:{d}, weight: {w})"
+            str = f"{str}]"
+        return str
 
 

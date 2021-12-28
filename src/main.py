@@ -23,6 +23,7 @@ def check():
     check0()
     check1()
     check2()
+    check3()
 
 
 def check0():
@@ -111,15 +112,6 @@ def check3():
 
 
 if __name__ == '__main__':
-     #check()
-     g_algo = GraphAlgo()
-     file = '../data/G1.json'
-     g_algo.load_from_json(file)
-     print(g_algo.centerPoint())
-     file = '../data/G2.json'
-     g_algo.load_from_json(file)
-     print(g_algo.centerPoint())
-     file = '../data/G3.json'
-     g_algo.load_from_json(file)
-     print(g_algo.centerPoint())
+     check()
+
 
