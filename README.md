@@ -19,7 +19,7 @@ https://github.com/JosefSo/Ex3_DWG/wiki
 
 ## Pre-Work
 
-We already implemented this algorithms so we used the same as in the previous assigment: <br>
+We already implemented these algorithms in Java you can have a look at this: <br>
 https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 
 
