@@ -110,10 +110,13 @@ def check3():
 
 
 if __name__ == '__main__':
-    graph = GraphAlgo()
-    if not graph.load_from_json(sys.argv[1]):
-        print("File not found")
+    if len(sys.argv)>1:
+        graph = GraphAlgo()
+        if not graph.load_from_json(sys.argv[1]):
+            print("File not found")
+        else:
+            graph.plot_graph()
     else:
-        graph.plot_graph()
+        check()
 
 

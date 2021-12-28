@@ -1,17 +1,13 @@
 import random
 import sys
-from _ast import List
 import heapq as heap
 from collections import defaultdict
-
 from matplotlib import pyplot as plt
-
-from src.DiGraph import DiGraph
-from src.GraphAlgoInterface import GraphAlgoInterface
-from src.GraphInterface import GraphInterface
+from DiGraph import DiGraph
+from GraphAlgoInterface import GraphAlgoInterface
+from GraphInterface import GraphInterface
 import json
-
-from src.aco import Graph, ACO
+from aco import Graph, ACO
 
 
 class GraphAlgo(GraphAlgoInterface):
