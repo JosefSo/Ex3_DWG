@@ -20,7 +20,8 @@ https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 ![rneVg](https://user-images.githubusercontent.com/77780368/147604052-001066c4-5886-42ce-a6e5-82257c2b40b3.png)
 
 🔹Shortest path: finding the shortest path between two nodes and its length. Our algorithm for finding shortest path is based on Dijkstra algorithm.
-
+<br>
+link to wikipedia: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 ![Dijkstra_Animation](https://user-images.githubusercontent.com/77780368/147604706-c57dd14a-ded5-4160-b734-5bd6ad4947a5.gif)![DijkstraDemo](https://user-images.githubusercontent.com/77780368/147604870-42dbf28e-91ad-42cf-a164-fb0861655a9c.gif)
 <br>
