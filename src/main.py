@@ -23,7 +23,6 @@ def check():
     check0()
     check1()
     check2()
-    check3()
 
 
 def check0():
@@ -112,6 +111,13 @@ def check3():
 
 
 if __name__ == '__main__':
-     check()
+     #check()
+     g_algo = GraphAlgo()
+     file = '../data/G1.json'
+     g_algo.load_from_json(file)
+     l = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
+     g_algo.floyd(g_algo.graph, l)
+
+     g_algo.TSP(l)
 

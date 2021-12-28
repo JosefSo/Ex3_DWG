@@ -10,6 +10,7 @@ from src.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 import json
+from aco import ACO, Graph
 
 from src.Node import Node
 
@@ -109,8 +110,71 @@ class GraphAlgo(GraphAlgoInterface):
             NodeList.append(stack.pop())
         return (dist,NodeList)
 
+
+
+
+    # Floyd–Warshall algorithm
+    def floyd(self, G, node_lst: list[int]):
+
+        # Number of vertices
+        V = self.graph.v_size()
+        # Defining a positive infinite integer
+        INF = float('inf')
+
+        dist = {} # create a dictionary
+        for i in node_lst:
+            dist[i] = {} # create a dict
+            for j in node_lst:
+                d, l = self.shortest_path(i, j)
+                dist[i][j] = d # () - create a tuple
+
+        print(dist)
+
+        return dist
+
+
+
+
+        # # Adding vertices individually
+        # for k in range(V):
+        #
+        #     # pick all vertices as source one by one
+        #     for i in range(V):
+        #
+        #         # Pick all vertices as destination for the
+        #         # above picked source
+        #         for j in range(V):
+        #
+        #             # If vertex k is on the shortest path from
+        #             # i to j, then update the value of dist[i][j]
+        #             dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+        # return dist
+
+
+
+
     def TSP(self, node_lst: list[int]) -> (list[int], float):
-        pass
+
+        dist = self.floyd(self.graph, node_lst)
+
+        cities = node_lst
+        points = []
+
+        # matrix after floyd-warshall
+        cost_matrix = []
+        # rank - need a size with all nodes for TSP
+        rank = len(node_lst)
+
+        # init the ACO class
+        aco = ACO(10, 100, 1.0, 10.0, 0.5, 10, 2)
+        # init the Graph class
+        graph = Graph(dist, rank)
+        # call solve
+        path, cost = aco.solve(graph)
+
+        print('cost: {}, path: {}'.format(cost, path))
+
+        return path, cost
 
     def maxPathOfNode(self,node:int):
         max =sys.float_info.min
