@@ -111,8 +111,13 @@ class GraphAlgo(GraphAlgoInterface):
         return (dist,NodeList)
 
 
-    # Floyd–Warshall algorithm
     def floyd(self, G, node_lst: list[int]):
+        """
+        Algorithm that finds all shortest paths that visits the nodes in the list
+        :param G: A graph
+        :param node_lst: A list of nodes id's
+        :return: A list of the nodes id's in the path, and the overall distance
+        """
 
         dist = {} # {} - create a dictionary
         for i in node_lst:
@@ -124,17 +129,22 @@ class GraphAlgo(GraphAlgoInterface):
 
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
+        """
+        Finds the shortest path that visits all the nodes in the list
+        :param node_lst: A list of nodes id's
+        :return: A list of the nodes id's in the path, and the overall distance
+        """
 
         dist = self.floyd(self.graph, node_lst)
 
         # matrix_size - a size with all nodes for TSP
         rank = len(node_lst)
 
-        # init the ACO class
+        # init the ACO class with these parameters (we can change it)
         aco = ACO(10, 100, 1.0, 10.0, 0.5, 10, 2)
-        # init the Graph class
+        # init the Graph class with matrix of all shortest paths
         graph = Graph(dist, rank)
-        # call solve
+        # call solve algorithm
         path, cost = aco.solve(graph)
 
         ans = []
