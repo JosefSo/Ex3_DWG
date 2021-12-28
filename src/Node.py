@@ -1,6 +1,7 @@
 
 class Node:
     def __init__(self, weight:float,id:int,tag:int,pos:tuple,info:str):
+       self.eout,self.ein=0,0
        self.weight = weight
        self.id = id
        x, y, z = pos
@@ -13,6 +14,7 @@ class Node:
        self.tag = tag
 
     def __init__(self, node_id: int, pos: tuple=None):
+        self.eout, self.ein = 0, 0
         self.weight = 0
         self.id = node_id
         if pos is not None:
@@ -51,8 +53,4 @@ class Node:
         self.tag=tag
 
     def __repr__(self):
-        if self.pos is not None:
-            x, y, z = self.pos
-            return f"Node id:{self.id}, pos:{x},{y},{z}"
-
-        return f"Node id:{self.id}"
+        return f"{self.id}: |edges_out| {self.eout} |edges in| {self.ein}"

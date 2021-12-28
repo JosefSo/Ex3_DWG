@@ -10,7 +10,6 @@ from src.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 import json
-from aco import ACO, Graph
 
 from src.Node import Node
 
@@ -42,7 +41,7 @@ class GraphAlgo(GraphAlgoInterface):
         class JsonGraph():
             def __init__(self,g:DiGraph):
                 self.Edges = []
-                for n in g.get_all_v().values():
+                for n in g.nodes.values():
                     for d,w in g.all_out_edges_of_node(n.getId()).items():
                         edge = {}
                         edge["src"] = n.getId()
@@ -50,7 +49,7 @@ class GraphAlgo(GraphAlgoInterface):
                         edge["dest"] = d
                         self.Edges.append(edge)
                 self.Nodes = []
-                for n in g.get_all_v().values():
+                for n in g.nodes.values():
                     node = {}
                     if (n.getLocation() is not None):
                         x, y, z = n.getLocation()
@@ -62,6 +61,7 @@ class GraphAlgo(GraphAlgoInterface):
         with open(file_name+".json","w") as f:
             json.dump(toSave,fp=f,indent=4,default=lambda o:o.__dict__)
 
+    # based on code from https://levelup.gitconnected.com/dijkstra-algorithm-in-python-8f0e75e3f16e
     def dijkstra(self, startingNode):
         visited = set()
         parentsMap = {}
@@ -91,9 +91,9 @@ class GraphAlgo(GraphAlgoInterface):
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         stack=[]
         curr=id2
-        if id1 not in self.graph.get_all_v().keys()or id1 not in self.graph.get_all_v().keys():
+        if id1 not in self.graph.nodes.keys()or id1 not in self.graph.nodes.keys():
            return (float('inf'), [])
-        stack.append(self.graph.get_all_v()[curr])
+        stack.append(self.graph.nodes[curr])
         if id1 == id2:
             return (0,stack)
         parentsMap, nodeCosts =self.dijkstra(id1)
@@ -104,61 +104,21 @@ class GraphAlgo(GraphAlgoInterface):
             return (float('inf'), [])
         while curr != id1:
             curr = parentsMap[curr]
-            stack.append(self.graph.get_all_v()[curr])
+            stack.append(self.graph.nodes[curr])
         NodeList=[]
         while(stack):
             NodeList.append(stack.pop().getId())
         return (dist,NodeList)
 
-
-    # Floyd–Warshall algorithm
-    def floyd(self, G, node_lst: list[int]):
-
-        dist = {} # {} - create a dictionary
-        for i in node_lst:
-            dist[i] = {} # {} - create a dict
-            for j in node_lst:
-                d, l = self.shortest_path(i, j)
-                dist[i][j] = d # () - create a tuple
-        return dist
-
-
     def TSP(self, node_lst: list[int]) -> (list[int], float):
-
-        dist = self.floyd(self.graph, node_lst)
-
-        # rank - a size with all nodes for TSP
-        rank = len(node_lst)
-
-        # init the ACO class
-        aco = ACO(10, 100, 1.0, 10.0, 0.5, 10, 2)
-        # init the Graph class
-        graph = Graph(dist, rank)
-        # call solve
-        path, cost = aco.solve(graph)
-
-        ans = []
-        tmp = []
-        cost = 0
-        for idx in range(len(path)-1):
-            c, tmp = self.shortest_path(path[idx], path[idx+1])
-            cost += c
-            for t in tmp:
-                ans.append(t)
-            if (idx != len(path)-2):
-                ans.pop()
-            tmp = []
-
-        # print('cost: {}, path: {}'.format(cost, ans))
-
-        return ans, cost
+        pass
 
     def maxPathOfNode(self,node:int):
         max =sys.float_info.min
         parentsMap, nodeCosts = self.dijkstra(node)
-        if len(nodeCosts) !=len(self.graph.get_all_v()):
+        if len(nodeCosts) !=len(self.graph.nodes):
             return None
-        for i in self.graph.get_all_v().keys():
+        for i in self.graph.nodes.keys():
             if i !=node:
                 temp= nodeCosts[i]
                 if temp>max:
@@ -168,10 +128,10 @@ class GraphAlgo(GraphAlgoInterface):
 
     def centerPoint(self) -> (int, float):
         min =sys.float_info.max
-        for i in self.graph.get_all_v().keys():
+        for i in self.graph.nodes.keys():
             center = self.maxPathOfNode(i)
             if center is None:
-                return None
+                return None, float('inf')
             if center<min:
                 min =center
                 ans=i
@@ -181,7 +141,7 @@ class GraphAlgo(GraphAlgoInterface):
         plt.xlabel("x")
         plt.ylabel("y")
         locations = {}
-        for node in self.graph.get_all_v().values():
+        for node in self.graph.nodes.values():
             if node.getId() in locations.keys():
                 x, y, z = locations[node.getId()]
             elif node.getLocation() is None:
@@ -197,11 +157,11 @@ class GraphAlgo(GraphAlgoInterface):
                 d, w = dest
                 if d in locations.keys():
                     his_x, his_y, his_z = locations[d]
-                elif self.graph.get_all_v()[d].getLocation() is None:
+                elif self.graph.nodes[d].getLocation() is None:
                     his_x, his_y, his_z = random.uniform(0, 100), random.uniform(0, 100), random.uniform(0, 100)
                     locations[d] = (his_x, his_y, his_z)
                 else:
-                    his_x, his_y, his_z = self.graph.get_all_v()[d].getLocation()
+                    his_x, his_y, his_z = self.graph.nodes[d].getLocation()
                     locations[d] = (his_x, his_y, his_z)
 
                 plt.annotate("", xy=(x, y), xytext=(his_x, his_y), arrowprops=dict(arrowstyle="<-"))

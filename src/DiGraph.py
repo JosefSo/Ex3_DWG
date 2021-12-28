@@ -34,6 +34,10 @@ class DiGraph(GraphInterface):
         return sum
 
     def get_all_v(self) -> dict:
+        ans={}
+        for k,n in self.nodes.items():
+            ans[k]={}
+            ans[k][n]=f"|edges_out| {self.all_out_edges_of_node(k)} |edges in| {self.all_in_edges_of_node(k)}"
         return self.nodes
 
 
@@ -60,6 +64,8 @@ class DiGraph(GraphInterface):
         if self.edges.get(id1).get(id2) is None and id1 in self.nodes and id2 in self.nodes:
              edge=Edge(id1,weight,id2)
              self.edges.get(id1)[id2]=edge
+             self.nodes[id1].eout=self.nodes[id1].eout+1
+             self.nodes[id2].ein = self.nodes[id2].ein + 1
              self.mc = self.mc + 1
              return True
         return False
@@ -77,27 +83,23 @@ class DiGraph(GraphInterface):
         if self.nodes[node_id] is None:
             return False
         self.mc = self.mc + len(self.edges[node_id])
-        del self.nodes[node_id]
         del self.edges[node_id]
         for i in self.edges.keys():
             self.remove_edge(i, node_id)
+        del self.nodes[node_id]
+        del self.nodes[node_id]
         self.mc = self.mc + 1
         return True
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if self.edges.get(node_id1).get(node_id2) is None:
+        if self.edges.get(node_id1).get(node_id2) is None or self.nodes[node_id1] is None or self.nodes[node_id2] is None:
             return False
         del self.edges.get(node_id1)[node_id2]
+        self.nodes[node_id1].eout = self.nodes[node_id1].eout - 1
+        self.nodes[node_id2].ein = self.nodes[node_id2].ein - 1
         self.mc=self.mc+1
         return True
     def __str__(self):
-        str=""
-        for i in self.get_all_v().keys():
-            str = f"{str}Edges from node {i}:["
-            for d,w in self.all_out_edges_of_node(i).items():
-                if (d,w) != None:
-                    str=f"{str}(dest:{d}, weight: {w})"
-            str = f"{str}]"
-        return str
+        return f"Graph: |V|={self.v_size()}, |E|={self.e_size()}"
 
 
