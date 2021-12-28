@@ -1,14 +1,39 @@
-from src.Edge import Edge
 from src.GraphInterface import GraphInterface
-from src.Node import Node
+class Node:
+    def __init__(self, node_id: int, pos: tuple=None):
+        self.eout, self.ein = 0, 0
+        self.id = node_id
+        if pos is not None:
+            x,y,z=pos
+            self.pos = float(x),float(y),float(z)
+        else:
+            self.pos = None
+    def getId(self) ->int:
+        return self.id
+    def setId(self,id:int):
+        self.id=id
+    def getLocation(self) ->tuple:
+        return self.pos
+    def setLocation(self,x:float,y:float,z:float):
+        self.pos=(x,y,z)
 
+    def __repr__(self):
+        return f"{self.id}: |edges_out| {self.eout} |edges in| {self.ein}"
+
+class Edge:
+    def __init__(self, src: int, weight: float, dest: int):
+        self.src = src
+        self.weight = weight
+        self.dest = dest
+    def getSrc(self) -> int:
+        return self.src
+    def getDest(self) -> int:
+        return self.dest
+    def getWeight(self) -> float:
+        return self.weight
 
 class DiGraph(GraphInterface):
 
-   # def __init__(self, nodes:dict,edges:dict):
-   #     self.nodes=nodes
-   #     self.edges=edges
-   #     self.mc=0
     def __init__(self):
         self.nodes={}
         self.edges={}
@@ -86,7 +111,6 @@ class DiGraph(GraphInterface):
         del self.edges[node_id]
         for i in self.edges.keys():
             self.remove_edge(i, node_id)
-        del self.nodes[node_id]
         del self.nodes[node_id]
         self.mc = self.mc + 1
         return True

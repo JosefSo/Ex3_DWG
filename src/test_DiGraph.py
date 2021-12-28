@@ -70,8 +70,10 @@ class TestDiGraph(TestCase):
         g_algo = GraphAlgo()
         file = "../data/G1.json"
         g_algo.load_from_json(file)
-        g_algo.get_graph().add_edge(1, 7, 3.3)
-        self.assertEqual(g_algo.graph.e_size(), 37)
+        g_algo.get_graph().add_node(18)
+        self.assertEqual(18,g_algo.graph.v_size())
+        g_algo.get_graph().add_node(19,(2,2,2))
+        self.assertEqual(19, g_algo.graph.v_size())
 
     def test_remove_node(self):
         h_algo = GraphAlgo()
