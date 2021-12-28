@@ -20,9 +20,11 @@ https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 ![rneVg](https://user-images.githubusercontent.com/77780368/147604052-001066c4-5886-42ce-a6e5-82257c2b40b3.png)
 
 🔹Shortest path: finding the shortest path between two nodes and its length. Our algorithm for finding shortest path is based on Dijkstra algorithm.
+
+
+![Dijkstra_Animation](https://user-images.githubusercontent.com/77780368/147604706-c57dd14a-ded5-4160-b734-5bd6ad4947a5.gif)![DijkstraDemo](https://user-images.githubusercontent.com/77780368/147604870-42dbf28e-91ad-42cf-a164-fb0861655a9c.gif)
 <br>
 Dijkstra's algorithm to find the shortest path between a and b. It picks the unvisited vertex with the lowest distance, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller. Mark visited (set to red) when done with neighbors.
-![Dijkstra_Animation](https://user-images.githubusercontent.com/77780368/147604706-c57dd14a-ded5-4160-b734-5bd6ad4947a5.gif)
 
 
 🔹TSP (travelling salesman problem): tsp - asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in theoretical computer science and operations research. <br> Our tsp function finds the shortest path between all given nodes on the graph. We've used ACO (Ant colony optimization) algorithm to solve this problem. ACO is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. <br>
