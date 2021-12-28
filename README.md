@@ -4,15 +4,28 @@ This OOP project deals with the realization of weighted and directed graphs. It 
 As part of implementing the graphs we implemented classes:
 
 
-* class GraphAlgoInterface
-* class GraphInterface
-* class GraphAlgo
-* class DiGraph
-* class aco 
-* class main
-* class test_DiGraph
+* class GraphAlgoInterface.py
+* class GraphInterface.py
+* class GraphAlgo.py
+* class DiGraph.py
+* class aco.py
+* class main.py
+* class test_DiGraph.py
 * class test_GraphAlgo.py
 
+<br>
+GraphAlgoInterface.py and GraphInterface.py are interfaces to GraphAlgo.py and DiGraph.py. There are functions and explinations about implements.
+<br>
+In DiGraph.py we have 3 classes: Node, Edge, DiGraph itself and some basic functions on graph such as getters, setters, add Node, remove Node, remove Edge etc.
+<br>
+In GraphAlgo.py we have algorithms on grpah such as find shortest path, find center on graph, tsp. GraphAlgo.py uses DiGraph. 
+<br>
+In aco.py we have three classes: ACO, Graph, Aunt we use them to implement ACO algorithm for solving TSP.
+<br>
+In main.py we have three check functions that checks if our algorithms work corectly. main.py uses GraphAlgo.py
+<br>
+test_DiGraph.py and test_GraphAlgo.py are tests for our program.
+<br>
 
 link to the wiki: <br>
 https://github.com/JosefSo/Ex3_DWG/wiki
