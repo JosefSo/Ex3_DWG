@@ -1,4 +1,4 @@
-# Ex3_DWG
+# Ex3_DWG - Directed Weighted Graph in Python
 
 This is the third assignment this semester in the course OOP, in this assignment we had to to implement directed weighted graph like in the last 
 assignment but this time in python.
