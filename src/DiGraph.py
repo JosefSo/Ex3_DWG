@@ -59,6 +59,9 @@ class DiGraph(GraphInterface):
         return sum
 
     def get_all_v(self) -> dict:
+        """return a dictionary of all the nodes in the Graph, each node is represented using a pair
+         (node_id, node_data)
+        """
         ans={}
         for k,n in self.nodes.items():
             ans[k]={}
