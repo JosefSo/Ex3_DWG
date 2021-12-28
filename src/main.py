@@ -1,3 +1,5 @@
+import sys
+
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
@@ -109,7 +111,6 @@ def check3():
 
 if __name__ == '__main__':
     graph = GraphAlgo()
-    print(sys.argv[1])
     if not graph.load_from_json(sys.argv[1]):
         print("File not found")
     else:
