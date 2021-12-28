@@ -102,9 +102,19 @@ link to UML: [UML_Ex3_DWG.pdf](https://github.com/JosefSo/Ex3_DWG/files/7786355/
 
 ## How To Run
 
-In order to run the program you will have to install matplotlib library. to install it in the terminal pip install matplotlib.
+🔹In order to run the program you will have to install matplotlib library. to install it in the terminal pip install matplotlib. <br>
 
-![image](https://user-images.githubusercontent.com/75334138/147597429-72bb6735-c163-43cb-9165-899a96286178.png)
+![image](https://user-images.githubusercontent.com/75334138/147597429-72bb6735-c163-43cb-9165-899a96286178.png)</br>
+🔹Download the zip of the project code. <br>
+🔹Open cmd. <br>
+🔹cd to src directory. <br>
+🔹You have now 2 choices: <br>
+1.Run the check() method that given with the task: write the next command "python main.py" (check0-check3 will be ran al plotted). <br>
+![image](https://user-images.githubusercontent.com/86108478/147611164-ead346e7-d514-40bc-83f7-3e5abf09b559.png) <br>
+
+2.Plot graph from json: write the next command "python main.py FileName.json" (FileName will be any direction for json file that you have).  <br>
+![image](https://user-images.githubusercontent.com/86108478/147611237-23a90072-d790-4ed8-9df9-7497dba6ba2c.png) <br>
+
 
 An exapmle of output like the required output of the main: <br>
 ![image](https://user-images.githubusercontent.com/75334138/147598653-ef875698-f9b2-4822-ab53-2d6fd3398ce5.png)
