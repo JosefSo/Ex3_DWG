@@ -38,6 +38,7 @@ class GraphAlgo(GraphAlgoInterface):
         edges = dict.get("Edges")
         for n in edges:
             self.graph.add_edge((int)(n["src"]), (int)(n["dest"]), (float)(n["w"]))
+        return True
 
     def save_to_json(self, file_name: str) -> bool:
         class JsonGraph():
@@ -62,6 +63,7 @@ class GraphAlgo(GraphAlgoInterface):
         toSave = JsonGraph(self.graph)
         with open(file_name+".json","w") as f:
             json.dump(toSave,fp=f,indent=4,default=lambda o:o.__dict__)
+        return True
 
     # based on code from https://levelup.gitconnected.com/dijkstra-algorithm-in-python-8f0e75e3f16e
     def dijkstra(self, startingNode):
