@@ -45,6 +45,9 @@ check3 no pos so the pos is random between 0-100: <br>
 
 ## UML
 
+![UML_Ex3_DWG](https://user-images.githubusercontent.com/77780368/147602367-65ecc9f8-69cf-4975-b8e3-3e6bc1983ebb.jpeg)
+
+
 ## How To Run
 
 In order to run the program you will have to install matplotlib library. to install it in the terminal pip install matplotlib.
