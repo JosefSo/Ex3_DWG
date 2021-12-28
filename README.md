@@ -1,8 +1,20 @@
 # Ex3_DWG - Directed Weighted Graph in Python
 
-This is the third assignment this semester in the course OOP, in this assignment we had to to implement directed weighted graph like in the last 
-assignment but this time in python.
 Like in the last one we implemented algorithms of Traveller Salesman Problem and Dijkstra.
+
+This OOP project deals with the realization of weighted and directed graphs. It includes a few calculations on the graph via well-known algorithms such as Floyd-Warshall algorithm and Dijkstra algorithm and also it includes the GUI (graphical user interface) to show the graph itself and it's calculations to the user. 
+As part of implementing the graphs we implemented classes:
+
+
+* class GraphAlgoInterface
+* class GraphInterface
+* class GraphAlgo
+* class DiGraph
+* class aco 
+* class main
+* class test_DiGraph
+* class test_GraphAlgo.py
+
 
 link to the wiki: <br>
 https://github.com/JosefSo/Ex3_DWG/wiki
