@@ -2,18 +2,19 @@ import random
 
 
 class Graph(object):
-    def __init__(self, cost_matrix: dict, rank: int):
+    def __init__(self, cost_matrix: dict, size: int):
         """
-        :param cost_matrix: matrix with all shortest paths
-        :param rank: rank of the cost matrix
+        :param cost_matrix: matrix with all shortest paths of a given list of nodes
+        :param matrix_size: size of the cost matrix
         """
+
+        self.matrix_size = size
         self.matrix = cost_matrix
-        self.rank = rank
         self.pheromone = {}
         for i in self.matrix.keys():
             self.pheromone[i] = {}
             for j in self.matrix.get(i).keys():
-                self.pheromone[i][j] = 1 / (rank * rank)
+                self.pheromone[i][j] = 1 / (size * size)
 
 
 class ACO(object):
