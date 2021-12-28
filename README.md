@@ -15,7 +15,9 @@ https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 
 ## Algorithms 
 
-🔹Center: finding a central node (node with the minimal sum weight of edges that get out of it to all other nodes). Our algorithm for finding center is based on dijkstra unlike the previous time.
+🔹Center: Finds the node that has the shortest distance to it's farthest node. Our algorithm for finding center is based on dijkstra.
+
+![rneVg](https://user-images.githubusercontent.com/77780368/147604052-001066c4-5886-42ce-a6e5-82257c2b40b3.png)
 
 🔹Shortest path: finding the shortest path between two nodes and its length. Our algorithm for finding shortest path is based on Dijkstra algorithm.
 
