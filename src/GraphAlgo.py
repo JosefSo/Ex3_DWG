@@ -11,7 +11,6 @@ from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 import json
 
-from src.Node import Node
 from src.aco import Graph, ACO
 
 
