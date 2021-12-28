@@ -69,7 +69,8 @@ check3 no pos so the pos is random between 0-100: <br>
 link to UML: [UML_Ex3_DWG.pdf](https://github.com/JosefSo/Ex3_DWG/files/7786177/UML_Ex3_DWG.pdf)
 
 
-![UML_Ex3_DWG](https://user-images.githubusercontent.com/77780368/147602367-65ecc9f8-69cf-4975-b8e3-3e6bc1983ebb.jpeg)
+![UML_Ex3_DWG](https://user-images.githubusercontent.com/86108478/147605870-3a01f9dc-d4bb-41c3-9543-7843e4ad8584.jpg)
+
 
 
 ## How To Run
