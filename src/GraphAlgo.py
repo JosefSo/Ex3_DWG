@@ -107,62 +107,27 @@ class GraphAlgo(GraphAlgoInterface):
             stack.append(self.graph.get_all_v()[curr])
         NodeList=[]
         while(stack):
-            NodeList.append(stack.pop())
+            NodeList.append(stack.pop().getId())
         return (dist,NodeList)
-
-
 
 
     # Floyd–Warshall algorithm
     def floyd(self, G, node_lst: list[int]):
 
-        # Number of vertices
-        V = self.graph.v_size()
-        # Defining a positive infinite integer
-        INF = float('inf')
-
-        dist = {} # create a dictionary
+        dist = {} # {} - create a dictionary
         for i in node_lst:
-            dist[i] = {} # create a dict
+            dist[i] = {} # {} - create a dict
             for j in node_lst:
                 d, l = self.shortest_path(i, j)
                 dist[i][j] = d # () - create a tuple
-
-        print(dist)
-
         return dist
-
-
-
-
-        # # Adding vertices individually
-        # for k in range(V):
-        #
-        #     # pick all vertices as source one by one
-        #     for i in range(V):
-        #
-        #         # Pick all vertices as destination for the
-        #         # above picked source
-        #         for j in range(V):
-        #
-        #             # If vertex k is on the shortest path from
-        #             # i to j, then update the value of dist[i][j]
-        #             dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
-        # return dist
-
-
 
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
 
         dist = self.floyd(self.graph, node_lst)
 
-        cities = node_lst
-        points = []
-
-        # matrix after floyd-warshall
-        cost_matrix = []
-        # rank - need a size with all nodes for TSP
+        # rank - a size with all nodes for TSP
         rank = len(node_lst)
 
         # init the ACO class
@@ -172,9 +137,21 @@ class GraphAlgo(GraphAlgoInterface):
         # call solve
         path, cost = aco.solve(graph)
 
-        print('cost: {}, path: {}'.format(cost, path))
+        ans = []
+        tmp = []
+        cost = 0
+        for idx in range(len(path)-1):
+            c, tmp = self.shortest_path(path[idx], path[idx+1])
+            cost += c
+            for t in tmp:
+                ans.append(t)
+            if (idx != len(path)-2):
+                ans.pop()
+            tmp = []
 
-        return path, cost
+        # print('cost: {}, path: {}'.format(cost, ans))
+
+        return ans, cost
 
     def maxPathOfNode(self,node:int):
         max =sys.float_info.min
