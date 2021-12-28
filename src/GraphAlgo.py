@@ -16,6 +16,7 @@ from src.aco import Graph, ACO
 
 
 class GraphAlgo(GraphAlgoInterface):
+    """This abstract class represents an interface of a graph."""
 
     def __init__(self, graph:GraphInterface= DiGraph()):
         self.graph=DiGraph()
@@ -38,6 +39,7 @@ class GraphAlgo(GraphAlgoInterface):
         edges = dict.get("Edges")
         for n in edges:
             self.graph.add_edge((int)(n["src"]), (int)(n["dest"]), (float)(n["w"]))
+
     def save_to_json(self, file_name: str) -> bool:
         class JsonGraph():
             def __init__(self,g:DiGraph):
@@ -64,6 +66,11 @@ class GraphAlgo(GraphAlgoInterface):
 
     # based on code from https://levelup.gitconnected.com/dijkstra-algorithm-in-python-8f0e75e3f16e
     def dijkstra(self, startingNode):
+        """
+        Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph
+        :param startingNode: A node from which we start the algorithm
+        :return: parentsMap - paths (which node was before), nodeCosts - distances from startingNode
+        """
         visited = set()
         parentsMap = {}
         pq = []
@@ -90,6 +97,12 @@ class GraphAlgo(GraphAlgoInterface):
 
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        """
+        Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
+        @param id1: The start node id
+        @param id2: The end node id
+        @return: The distance of the path, a list of the nodes ids that the path goes through
+        """
         stack=[]
         curr=id2
         if id1 not in self.graph.nodes.keys()or id1 not in self.graph.nodes.keys():
@@ -111,9 +124,13 @@ class GraphAlgo(GraphAlgoInterface):
             NodeList.append(stack.pop().getId())
         return (dist,NodeList)
 
-    # Floyd–Warshall algorithm
     def floyd(self, G, node_lst: list[int]):
-
+        """
+        Finds all shortest paths that visits all the nodes in the list
+        :param node_lst: A list of nodes id's
+        :param G: graph
+        :return: A dist of the shortest paths between a given nodes
+        """
         dist = {}  # {} - create a dictionary
         for i in node_lst:
             dist[i] = {}  # {} - create a dict
@@ -123,7 +140,11 @@ class GraphAlgo(GraphAlgoInterface):
         return dist
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
-
+        """
+        Finds the shortest path that visits all the nodes in the list
+        :param node_lst: A list of nodes id's
+        :return: A list of the nodes id's in the path, and the overall distance
+        """
         dist = self.floyd(self.graph, node_lst)
 
         # matrix_size - a size with all nodes for TSP
@@ -162,6 +183,10 @@ class GraphAlgo(GraphAlgoInterface):
 
 
     def centerPoint(self) -> (int, float):
+        """
+        Finds the node that has the shortest distance to it's farthest node.
+        :return: The nodes id, min-maximum distance
+        """
         min =sys.float_info.max
         for i in self.graph.nodes.keys():
             center = self.maxPathOfNode(i)
@@ -172,6 +197,7 @@ class GraphAlgo(GraphAlgoInterface):
                 ans=i
         return ans,min
     def plot_graph(self) -> None:
+        """ Draws the graph with pyplot library """
         plt.title("Directed Weighted Graph")
         plt.xlabel("x")
         plt.ylabel("y")

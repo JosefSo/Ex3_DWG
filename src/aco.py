@@ -7,7 +7,6 @@ class Graph(object):
         :param cost_matrix: matrix with all shortest paths of a given list of nodes
         :param matrix_size: size of the cost matrix
         """
-
         self.matrix_size = size
         self.matrix = cost_matrix
         self.pheromone = {}
@@ -18,11 +17,10 @@ class Graph(object):
 
 
 class ACO(object):
-    def __init__(self, ant_count: int, generations: int, alpha: float, beta: float, rho: float, q: int,
-                 strategy: int):
+    def __init__(self, ant_count: int, generations: int, alpha: float, beta: float, rho: float, q: int, strategy: int):
         """
-        :param ant_count:
-        :param generations:
+        :param ant_count: count of ant
+        :param generations: number of generations
         :param alpha: relative importance of pheromone
         :param beta: relative importance of heuristic information
         :param rho: pheromone residual coefficient
@@ -45,10 +43,11 @@ class ACO(object):
                     graph.pheromone[i][j] += ant.pheromone_delta[i][j]
 
 
-
     def solve(self, graph: Graph):
         """
-        :param graph:
+        Sloves the TSP: find the shortest path as near as possible between all the given nodes
+        :param graph: graph with matrix of all shortest path between a given nodes
+        :return: A list of the nodes id's in the path, and the overall distance
         """
         best_cost = float('inf')
         best_solution = []
@@ -72,6 +71,7 @@ class ACO(object):
 
 
 class _Ant(object):
+    """ Ant class """
     def __init__(self, aco: ACO, graph: Graph):
         self.colony = aco
         self.graph = graph
@@ -98,8 +98,8 @@ class _Ant(object):
         self.current = start
         self.allowed.remove(start)
 
-    # select next node by probability roulette
-    def _select_next(self):
+    def _select_next(self) -> None:
+        """ selects next node by probability roulette """
         denominator = 0
         for i in self.allowed:
             denominator += \
@@ -118,8 +118,6 @@ class _Ant(object):
             except ValueError:
                 pass  # do nothing
 
-
-
         if len(self.allowed) != 0:
             selected = self.allowed[0]
             rand = random.random()
@@ -136,6 +134,7 @@ class _Ant(object):
             self.current = selected
 
     def _update_pheromone_delta(self):
+        """ updates pheromone on the path """
         self.pheromone_delta = {}
         for i in self.graph.matrix.keys():
             self.pheromone_delta[i] = {}
