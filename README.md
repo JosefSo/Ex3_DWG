@@ -14,17 +14,18 @@ As part of implementing the graphs we implemented classes:
 * class test_GraphAlgo.py
 
 <br>
-GraphAlgoInterface.py and GraphInterface.py are interfaces to GraphAlgo.py and DiGraph.py. There are functions and explinations about implements.
+- GraphAlgoInterface.py and GraphInterface.py are interfaces to GraphAlgo.py and DiGraph.py. There are functions and explinations about implements.
 <br>
-In DiGraph.py we have 3 classes: Node, Edge, DiGraph itself and some basic functions on graph such as getters, setters, add Node, remove Node, remove Edge etc.
+- In DiGraph.py we have 3 classes: Node, Edge, DiGraph itself and some basic functions on graph such as getters, setters, add Node, remove Node, remove Edge etc.
 <br>
-In GraphAlgo.py we have algorithms on grpah such as find shortest path, find center on graph, tsp. GraphAlgo.py uses DiGraph. 
+- In GraphAlgo.py we have algorithms on grpah such as find shortest path, find center on graph, tsp. GraphAlgo.py uses DiGraph. 
 <br>
-In aco.py we have three classes: ACO, Graph, Aunt we use them to implement ACO algorithm for solving TSP.
+- In aco.py we have three classes: ACO, Graph, Aunt we use them to implement ACO algorithm for solving TSP.
 <br>
-In main.py we have three check functions that checks if our algorithms work corectly. main.py uses GraphAlgo.py
+- In main.py we have three check functions that checks if our algorithms work corectly. main.py uses GraphAlgo.py
 <br>
-test_DiGraph.py and test_GraphAlgo.py are tests for our program.
+- test_DiGraph.py and test_GraphAlgo.py are tests for our program.
+<br>
 <br>
 
 link to the wiki: <br>
