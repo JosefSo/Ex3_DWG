@@ -18,14 +18,15 @@ class Graph(object):
 
 
 class ACO(object):
-    def __init__(self, ant_count: int, generations: int, alpha: float, beta: float, rho: float, q: int, strategy: int):
+    def __init__(self, ant_count: int, generations: int, alpha: float, beta: float, rho: float, q: int,
+                 strategy: int):
         """
-        :param ant_count: count of ant
-        :param generations: number of algorithm's generations
-        :param alpha:relative importance of pheromone
-        :param beta: relative  importance of heuristic information
-        :param rho: pheromone residual  coefficient
-        :param q: pheromone  intensity
+        :param ant_count:
+        :param generations:
+        :param alpha: relative importance of pheromone
+        :param beta: relative importance of heuristic information
+        :param rho: pheromone residual coefficient
+        :param q: pheromone intensity
         :param strategy: pheromone update strategy. 0 - ant-cycle, 1 - ant-quality, 2 - ant-density
         """
         self.Q = q
@@ -37,10 +38,6 @@ class ACO(object):
         self.update_strategy = strategy
 
     def _update_pheromone(self, graph: Graph, ants: list):
-        """
-        :param graph: graph with a distance's matrix
-        :param ants: ants simulation
-        """
         for i in graph.pheromone.keys():
             for j in graph.pheromone.get(i).keys():
                 graph.pheromone[i][j] *= self.rho
@@ -51,7 +48,7 @@ class ACO(object):
 
     def solve(self, graph: Graph):
         """
-        :param graph: graph with distance's matrix
+        :param graph:
         """
         best_cost = float('inf')
         best_solution = []
@@ -76,10 +73,6 @@ class ACO(object):
 
 class _Ant(object):
     def __init__(self, aco: ACO, graph: Graph):
-        """
-        :param aco: ACO class
-        :param graph: graph with distance's matrix
-        """
         self.colony = aco
         self.graph = graph
         self.total_cost = 0.0
@@ -107,9 +100,6 @@ class _Ant(object):
 
     # select next node by probability roulette
     def _select_next(self):
-        """
-        selects next 'good' node to go on
-        """
         denominator = 0
         for i in self.allowed:
             denominator += \
@@ -128,6 +118,8 @@ class _Ant(object):
             except ValueError:
                 pass  # do nothing
 
+
+
         if len(self.allowed) != 0:
             selected = self.allowed[0]
             rand = random.random()
@@ -144,9 +136,6 @@ class _Ant(object):
             self.current = selected
 
     def _update_pheromone_delta(self):
-        """
-        updates pheromone on the path
-        """
         self.pheromone_delta = {}
         for i in self.graph.matrix.keys():
             self.pheromone_delta[i] = {}
