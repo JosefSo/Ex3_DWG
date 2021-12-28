@@ -21,7 +21,7 @@ https://github.com/SaliSharfman/Ex2_DirectedWeightedGraph.git
 
 🔹Shortest path: finding the shortest path between two nodes and its length. Our algorithm for finding shortest path is based on Dijkstra algorithm.
 <br> 
-more about Dijkstra: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+More about Dijkstra: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 ![Dijkstra_Animation](https://user-images.githubusercontent.com/77780368/147604706-c57dd14a-ded5-4160-b734-5bd6ad4947a5.gif) <br>
 Dijkstra's algorithm to find the shortest path between a and b. It picks the unvisited vertex with the lowest distance, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller. Mark visited (set to red) when done with neighbors.  <br>
@@ -31,7 +31,10 @@ A demo of Dijkstra's algorithm based on Euclidean distance. Red lines are the sh
 
 
 
-🔹TSP (travelling salesman problem): tsp - asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in theoretical computer science and operations research. <br> Our tsp function finds the shortest path between all given nodes on the graph. We've used ACO (Ant colony optimization) algorithm to solve this problem. ACO is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. <br>
+🔹TSP (travelling salesman problem): tsp - asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in theoretical computer science and operations research. <br>
+More about tsp:  https://en.wikipedia.org/wiki/Travelling_salesman_problem <br>
+Our tsp function finds the shortest path between all given nodes on the graph. We've used ACO (Ant colony optimization) algorithm to solve this problem. ACO is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. Our ACO algorithm depends on a randomaly desicions so it may give a different results on the same input data. <br>
+More about ACO:  https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms <br>
 
 ![AntColony](https://user-images.githubusercontent.com/77780368/147604381-28079434-1390-4ce9-b86f-a7d2bdecb753.gif)
 
